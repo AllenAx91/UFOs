@@ -46,6 +46,7 @@ function updateFilters() {
     // to the filters list. Otherwise, clear that filter from the filters object.
     if (elementvalue) {
       filters[filterId] = elementvalue;
+      console.log(filters);
     }
     else {
       delete filters[filterId];
@@ -63,7 +64,7 @@ function updateFilters() {
   
     // 9. Loop through all of the filters and keep any data that matches the filter values in the variable created in Step 8.
 
-    Object.entries(filters).forEach(([key, value]) => { filteredData= filterTable.filter( row => row[key] === value)});
+    Object.entries(filters).forEach(([key, value]) => { filteredData= filteredData.filter( row => row[key] === value)});
 
   
     // 10. Finally, rebuild the table using the filtered data
@@ -72,11 +73,8 @@ function updateFilters() {
   
   // 2. Attach an event to listen for changes to each filter
 
-d3.select("#datetime").on("change", updateFilters());
-d3.select("#city").on("change", updateFilters());
-d3.select("#state").on("change", updateFilters());
-d3.select("#country").on("change", updateFilters());
-d3.select("#shape").on("change", updateFilters()); 
+d3.selectAll('input').on("change", updateFilters);
+
   
   // Build the table when the page loads
 buildTable(tableData);
